@@ -5,7 +5,10 @@ K = int(input())
 graph = {i: {} for i in range(1, V+1)}
 for _ in range(E):
     u, v, w = map(int, input().split())
-    graph[u][v] = w
+    if v in graph[u]:
+        graph[u][v] = min(graph[u][v], w)
+    else:
+        graph[u][v] = w
 
 def dijkstra(graph, start):
     distances = {node: float('inf') for node in graph}
@@ -28,8 +31,8 @@ def dijkstra(graph, start):
     return distances
 
 distances = dijkstra(graph, K)
-for node, dist in distances.items():
-    if dist == float('inf'):
+for key, val in distances.items():
+    if val == float('inf'):
         print("INF")
     else:
-        print(dist)
+        print(val)
