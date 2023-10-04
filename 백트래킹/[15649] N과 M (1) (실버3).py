@@ -1,7 +1,17 @@
 # https://www.acmicpc.net/problem/15649
-from itertools import permutations
+N, M = list(map(int,input().split()))
+ 
+stack = []
 
-N, M = map(int, input().split())
+def dfs():
+    if len(stack) == M:
+        print(" ".join(map(str, stack)))
+        return
+    
+    for i in range(1, N+1):
+        if i not in stack:
+            stack.append(i)
+            dfs()
+            stack.pop()
 
-for pmt in permutations([i for i in range(1, N+1)], M):
-    print(*pmt)
+dfs()
